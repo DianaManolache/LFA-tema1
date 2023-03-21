@@ -5,6 +5,7 @@
 using namespace std;
 ifstream f1("../exemplu1.in");
 ifstream f2("../exemplu2.in");
+ifstream f3("../exemplu3.in");
 
 int matrice[1001][1001], stfin[1001], nrstfin, nrlitere;
 char alfabet[101];
@@ -19,9 +20,9 @@ void citire1() {
     int nrstari, nrfunctii, stare1, stare2, k = -1, cnt = -1, ok;
     char cuv;
 
-    f1 >> nrstari >> nrfunctii >> nrstfin >> nrlitere;
+    f3 >> nrstari >> nrfunctii >> nrstfin >> nrlitere;
     for (int i = 0; i < nrfunctii; i++) {
-        f1 >> stare1 >> cuv >> stare2;
+        f3 >> stare1 >> cuv >> stare2;
         matrice[stare1][int(cuv)] = stare2;
         ok = 0;
         for (int j = 0; j <= cnt; j++) {
@@ -31,7 +32,7 @@ void citire1() {
         if (ok == 0)alfabet[++cnt] = char(cuv);
     }
     for (int i = 0; i < nrstfin; i++) {
-        f1 >> stfin[++k];
+        f3 >> stfin[++k];
     }
 }
 
@@ -61,24 +62,35 @@ int main() {
             drum[++k] = stare;
         }
     }
-
-    if (ok == 0)
-        cout << "neacceptat";
-    else {
-        okk = 0;
-        for(int i = 0; i <nrstfin; i++)
-            if(stare == stfin[i]) okk = 1;
-
-        if(okk == 0)
-            cout << "neacceptat";
-        else
+    int posibilcuvvid = 0;
+        for(int i = 0; i < nrstfin; i++)
         {
-            cout << "acceptat" << endl;
-            cout << drum[0];
-            for (int i = 1; i < k; i++)
-                cout << "->" << drum[i];}
+            if( stfin[i] == 0)posibilcuvvid = 1;
+        }
 
+    if( cuvant[0] == '-' && ::strlen(cuvant) == 1)
+    {
+        if(posibilcuvvid == 1)cout<< "acceptat\n" << 0 << "->" <<0;
+        else cout << "neacceptat";
     }
+    else{
+        if (ok == 0)
+            cout << "neacceptat";
+        else {
+            okk = 0;
+            for(int i = 0; i <nrstfin; i++)
+                if(stare == stfin[i]) okk = 1;
 
+            if(okk == 0)
+                cout << "neacceptat";
+            else
+            {
+                cout << "acceptat" << endl;
+                cout << drum[0];
+                for (int i = 1; i < k; i++)
+                    cout << "->" << drum[i];}
+
+        }
+    }
     return 0;
 }
